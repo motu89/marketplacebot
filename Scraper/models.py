@@ -6,6 +6,8 @@ class Fb_credentails(models.Model):
     owner = models.ForeignKey(User, on_delete=models.CASCADE)
     username = models.CharField(max_length=250, blank=True, null=True)
     password = models.CharField(max_length=250, blank=True, null=True)
+    class Meta:
+        verbose_name = 'Facebook account Credentials'
 
 
 class Product(models.Model):
