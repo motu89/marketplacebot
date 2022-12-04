@@ -22,13 +22,9 @@ def scraper(request):
     #  option.add_argument('--disable-notifications')
     # #  Passing Driver path alongside with Driver modified Options
     #  driver = webdriver.Chrome(executable_path=  r"Scraper/chromedriver.exe", chrome_options= option)
-    #
-    #
-    #
+
     #  driver.get("https://www.facebook.com/login.php/")
-
-
-     #here is code for heroku web drivers
+     #  #here is code for heroku web drivers
 
      url = 'https://www.facebook.com/login.php/'
 
@@ -37,8 +33,6 @@ def scraper(request):
      options.add_experimental_option("detach", True)
      options.add_experimental_option(
          'excludeSwitches', ['enable-logging'])  # for skipping the warning
-
-
      options.headless = True
 
      chrome_options = webdriver.ChromeOptions()
@@ -46,6 +40,7 @@ def scraper(request):
      chrome_options.add_argument("--headless")
      chrome_options.add_argument("--disable-dev-shm-usage")
      chrome_options.add_argument("--no-sandbox")
+     chrome_options.add_argument("--disable-notifications")
      driver = webdriver.Chrome(executable_path=os.environ.get("CHROMEDRIVER_PATH"), chrome_options=chrome_options)
      driver.get(url)
 
