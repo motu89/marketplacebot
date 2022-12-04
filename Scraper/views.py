@@ -33,9 +33,9 @@ def scraper(request):
      options.add_experimental_option("detach", True)
      options.add_experimental_option(
          'excludeSwitches', ['enable-logging']) # for skipping the warning
-     options.add_experimental_option("prefs", {
-         "profile.default_content_setting_values.notifications": 2
-     })
+     # options.add_experimental_option("prefs", {
+     #     "profile.default_content_setting_values.notifications": 2
+     # })
      options.headless = True
 
      chrome_options = webdriver.ChromeOptions()
