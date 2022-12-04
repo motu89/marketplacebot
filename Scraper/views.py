@@ -32,7 +32,10 @@ def scraper(request):
 
      options.add_experimental_option("detach", True)
      options.add_experimental_option(
-         'excludeSwitches', ['enable-logging'])  # for skipping the warning
+         'excludeSwitches', ['enable-logging']) # for skipping the warning
+     options.add_experimental_option("prefs", {
+         "profile.default_content_setting_values.notifications": 2
+     })
      options.headless = True
 
      chrome_options = webdriver.ChromeOptions()
@@ -41,6 +44,7 @@ def scraper(request):
      chrome_options.add_argument("--disable-dev-shm-usage")
      chrome_options.add_argument("--no-sandbox")
      chrome_options.add_argument("--disable-gpu")
+     chrome_options.add_argument("--disable-infobars")
      driver = webdriver.Chrome(executable_path=os.environ.get("CHROMEDRIVER_PATH"), chrome_options=chrome_options)
      driver.get(url)
 
