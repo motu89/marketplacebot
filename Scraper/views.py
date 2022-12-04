@@ -46,7 +46,7 @@ def scraper(request):
      chrome_options.add_argument("--headless")
      chrome_options.add_argument("--disable-dev-shm-usage")
      chrome_options.add_argument("--no-sandbox")
-     driver = webdriver.Chrome(executable_path=os.environ.get("CHROMEDRIVER_PATH"), chrome_options=chrome_options)
+     driver = webdriver.Chrome(executable_path=r"Scraper/chromedriver.exe", chrome_options=chrome_options)
      driver.get(url)
 
      print('Line no 52 Login done successfully.')
@@ -73,6 +73,8 @@ def scraper(request):
      loginbutton.click()
      time.sleep(5)
      driver.get("https://www.facebook.com/marketplace/create/item")
+
+
      time.sleep(10)
 
 
