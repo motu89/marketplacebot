@@ -1,0 +1,230 @@
+{% extends 'base2.html' %}
+{% load static %}
+
+{% block title %}
+    Dashboard
+{% endblock %}
+{% block content %}
+
+
+
+
+
+
+    <body class="hold-transition light-mode sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">
+    <div class="wrapper">
+
+
+        <div class="content-wrapper">
+            <!-- Content Header (Page header) -->
+            <section class="content-header">
+                <div class="container-fluid">
+                    <div class="row mb-2">
+                        <div class="col-sm-6">
+                            <h1>Meta scrapy </h1>
+                        </div>
+                        <div class="col-sm-6">
+                            <ol class="breadcrumb float-sm-right">
+                                <li class="breadcrumb-item"><a href="#">Dashboard</a></li>
+                                <li class="breadcrumb-item active">Meta scrapy</li>
+                            </ol>
+
+                        </div>
+                    </div>
+                </div><!-- /.container-fluid -->
+            </section>
+
+            <!-- Main content -->
+            <section class="content">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-12">
+                            <form action="{% url 'add_product' %}" method="post" enctype="multipart/form-data">
+                                {% csrf_token %}
+                                <div class="form-group row">
+
+                                  
+                                    <div class="col-sm-5">
+
+                                            <a href="{% url 'scraper' %}" type="button" class="btn btn-success">
+                                                Publish Ads On Market Place
+                                                </a>
+                              (click on this button to start Publish all the ads in below table)
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+
+                                    <div class="col-sm-4">
+                                        <input type="file" name="myfile" class="form-control" value="Import File" style="padding-bottom: 36px;"
+                                               required>
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <input type="submit" class="btn btn-info mt-1" value="Import File">
+                                    </div>
+                                   
+                                </div>
+
+
+                               
+
+
+                            </form>
+                            <div class="card">
+                                <div class="card-header">
+
+<small><a class="btn btn-danger bi bi-trash text-white" id="delete_btn"><span
+                                            class="glyphicon glyphicon-trash"></span> Delete</a></small>
+                                            (Select items and click on delete button to delete items)
+                                </div>
+                                <h5 style="text-decoration:#00a65a">{% include '_messages.html' %}</h5>
+
+                                <!-- /.card-header -->
+                                <div class="card-body">
+
+                                    <table id="example1" class="table table-bordered table-hover">
+
+
+
+                                        <thead style="background-color:#007bff" class="text-white">
+                                        <tr>
+                                            <th>Select</th>
+
+                                            <th>Title</th>
+                                            <th>Price</th>
+
+
+                                            <th>Location</th>
+                                            <th>Description</th>
+                                            <th>Tags</th>
+                                            <th>Image</th>
+
+
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        {% for item in product_data %}
+                                            <tr id="{{ item.id }}">
+                                                <td data-th="Select"><input type="checkbox" name="sel"
+                                                                            value="{{ item.id }}"></td>
+
+                                                <td>{{ item.title }}</td>
+                                                <td>{{ item.price }}</td>
+
+
+                                                <td>{{ item.location }}</td>
+                                                <td>{{ item.desc }}</td>
+                                                <td>{{ item.tag1 }}
+                                                    &nbsp; {{ item.tag2 }}&nbsp; {{ item.tag3 }}&nbsp; {{ item.tag4 }}&nbsp; {{ item.tag5 }}</td>
+
+                                                <td>{% if item.image %}
+                                                    <img src="{{ item.image.url }}"
+                                                         class="user-image img-circle elevation-2"
+                                                         alt="User profile picture" height="70px" width="70px">
+                                                {% else %}
+                                                    <form action="{% url 'add_image'  %}" method="post"
+                                                          enctype="multipart/form-data">
+                                                        {% csrf_token %}
+                                                        <div class="form-group row">
+
+                                                            <div class="col-sm-8">
+                                                                <input type="file" name="product_image"
+                                                           
+                                                                       value="Image">
+                                                            </div>
+
+                                                                <input type="hidden" name="product_pk"
+                                                                       class="form-control"
+                                                                       value="{{ item.id }}">
+
+                                                            <div class="col-sm-2">
+                                                                <input type="submit" class="btn btn-sm btn-primary"
+                                                                       value="Upload">
+                                                            </div>
+
+                                                        </div>
+                                                    </form>
+                                                {% endif %}
+                                                </td>
+
+
+                                            </tr>
+                                        {% endfor %}
+
+                                        </tbody>
+
+
+                                    </table>
+                                </div>
+                                <!-- /.card-body -->
+                            </div>
+
+                        </div>
+                        <!-- /.col -->
+                    </div>
+                    <!-- /.row -->
+                </div>
+                <!-- /.container-fluid -->
+            </section>
+            <!-- /.content -->
+        </div>
+    </div>
+
+
+    <script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
+    <script>
+        $(function () {
+            $("#example1").DataTable({
+                "responsive": true, "lengthChange": false, "autoWidth": true,
+                "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
+            }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+            $('#example2').DataTable({
+                "paging": true,
+                "lengthChange": false,
+                "searching": false,
+                "ordering": true,
+                "info": true,
+                "autoWidth": true,
+                "responsive": true,
+            });
+        });
+    </script>
+
+    <script>
+        $(document).ready(function () {
+            $('#delete_btn').click(function () {
+                if (confirm("Are you sure you want to delete selected?"))
+                    var id = [];
+                var csrf = $('input[name=csrfmiddlewaretoken] ').val();
+                $(':checkbox:checked').map(function (i) {
+                    id[i] = $(this).val()
+                })
+                if (id.length === 0) {
+                    alert("Please select files to delete")
+                } else {
+                    console.log(id)
+
+
+                    $.ajax({
+                        url: '{% url 'delete_product' %}',
+                        method: "POST",
+                        headers: {'X-CSRFToken': '{{ csrf_token }}'},
+                        data: {
+                            id
+                        },
+                        success: function (response) {
+                            for (var i = 0; i < id.length; i++) {
+                                $('tr#' + id[i] + '').css('background-color', '#ccc');
+                                $('tr#' + id[i] + '').fadeOut('slow');
+                            }
+                        }
+                    })
+                }
+            })
+        });
+    </script>
+    </body>
+
+
+{% endblock %}
+

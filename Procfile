@@ -1,0 +1,1 @@
+web: gunicorn FBBot.wsgi --log-file -
