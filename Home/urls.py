@@ -14,7 +14,7 @@ path('setting_security', views.setting_security, name='setting_security'),
 path('add_product', views.add_product, name='add_product'),
 path('delete_product', views.delete_product, name='delete_product'),
 path('add_image', views.add_image, name='add_image'),
-
+path('upload_images', views.upload_images, name='upload_images'),
 
 
 

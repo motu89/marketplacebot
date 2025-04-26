@@ -1,8 +1,4 @@
-
-
-
 {% load static %}
-
 
 <nav class="main-header navbar navbar-expand navbar-white navbar-light">
     <!-- Left navbar links -->
@@ -11,27 +7,16 @@
             <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
         </li>
              <li class="nav-item d-none d-sm-inline-block">
-
-
                  <div id='google_translate_element' class="form-group"></div>
       </li>
-
-
-
     </ul>
-
-
-
     <!-- Right navbar links -->
     <ul class="navbar-nav ml-auto">
-
-
 
         <!-- Notifications Dropdown Menu -->
 
         <li class="nav-item dropdown user-menu">
             <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">
-
 
                 {% if user_profile.picture %}
                     <img src="{{ user_profile.picture.url }}"
@@ -56,7 +41,6 @@
                     {% else %}
                         <img class="user-image img-circle elevation-2"
                              alt="User profile picture" src="{% static 'dist/img/avatar5.png' %}"
-
                         >
                     {% endif %}
 
@@ -79,12 +63,9 @@
                 <i class="fas fa-expand-arrows-alt"></i>
             </a>
         </li>
-
-
     </ul>
 </nav>
 <!-- /.navbar -->
-
 
 <aside class="main-sidebar sidebar-light-blue-primary elevation-4">
 
@@ -100,25 +81,11 @@
     <div class="sidebar">
         <!-- Sidebar user panel (optional) -->
         <div class="user-panel mt-3 pb-3 mb-3 d-flex">
-            <!-- <div class="image">
-
-                {% if user_profile.picture %}
-                    <img src="{{ user_profile.picture.url }}"
-                         class="img-circle elevation-2"
-                         alt="User profile picture">
-                {% else %}
-                    <img class="img-circle elevation-2"
-                         alt="User profile picture" src="{% static 'dist/img/avatar5.png' %}"
-
-                    >
-                {% endif %}
-            </div> -->
             <div class="info">
                 <a href="#"
                    class="d-block">{{ user_profile.owner.first_name }}&nbsp;{{ user_profile.owner.last_name }}</a>
             </div>
         </div>
-
         <!-- SidebarSearch Form -->
         <div class="form-inline">
             <div class="input-group" data-widget="sidebar-search">
@@ -143,20 +110,6 @@
                         </p>
                     </a>
                 </li>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
                 <li class="nav-item">
                     <a href="{% url 'Settings' %}" class="nav-link">
                         <i class="fas fa-cog"></i>
@@ -166,8 +119,6 @@
                         </p>
                     </a>
                 </li>
-
-
                 <li class="nav-item">
                     <a href="{% url 'Logout' %}" class="nav-link">
 
@@ -178,8 +129,6 @@
                         </p>
                     </a>
                 </li>
-
-
             </ul>
         </nav>
         <!-- /.sidebar-menu -->
