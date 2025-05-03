@@ -7,13 +7,12 @@ from django.shortcuts import render, redirect
 from django.core.mail import send_mail, EmailMessage,EmailMultiAlternatives
 from django.template.loader import render_to_string
 from django.utils.html import strip_tags
+from django.conf import settings
 
 
 # Create your views here.
 from .models import Profile
 def send_email_otp(x,user_email,otp):
-
-
     subject = 'Verification Code'
 
     html_content = render_to_string('otp_email_template.html',
@@ -21,7 +20,7 @@ def send_email_otp(x,user_email,otp):
                                      })
     text_content = strip_tags(html_content)
 
-    msg = EmailMultiAlternatives(subject, text_content, 'adnanrafique340@gmail.com', user_email)
+    msg = EmailMultiAlternatives(subject, text_content, settings.EMAIL_HOST_USER, user_email)
     msg.attach_alternative(html_content, "text/html")
     msg.send()
     return None
@@ -64,7 +63,6 @@ def forget_password(request):
             return redirect('forget_password')
 
         user=User.objects.filter(email=Username).first()
-        print(user)
 
         x= Profile.objects.filter(owner=user).first()
         if user is None:
@@ -75,7 +73,6 @@ def forget_password(request):
         x.otp = otp
         x.save()
         mobile=x.phone
-        print(otp)
 
         user_email = []
         user_email.append(user.email)
@@ -120,7 +117,7 @@ def update_password(request):
 
     if request.method == 'POST':
         users = User.objects.get(email=Username)
-        user_profile = Profile.objects.get(owner=users)
+        user_profile = Profile.objects.filter(owner=users).first()
 
         new_password = request.POST.get('new_password')
 
@@ -128,8 +125,6 @@ def update_password(request):
 
         if len(new_password)!=0:
             users.set_password(new_password)
-            user_profile.changed_default_password = 'Yes'
-            user_profile.save()
             users.save()
 
             messages.info(request, 'Password updated successfully,Please Login with New Set Password')

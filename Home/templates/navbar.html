@@ -1,5 +1,18 @@
 {% load static %}
 
+<style>
+/* Hide profile images */
+.user-image, 
+.user-panel .image {
+    display: none !important;
+}
+
+/* Make info full width */
+.user-panel .info {
+    width: 100% !important;
+}
+</style>
+
 <nav class="main-header navbar navbar-expand navbar-white navbar-light">
     <!-- Left navbar links -->
     <ul class="navbar-nav">
@@ -17,36 +30,24 @@
 
         <li class="nav-item dropdown user-menu">
             <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">
-
-                {% if user_profile.picture %}
-                    <img src="{{ user_profile.picture.url }}"
-                         class="user-image img-circle elevation-2"
-                         alt="User profile picture">
-                {% else %}
-                    <img class="user-image img-circle elevation-2"
-                         alt="User profile picture" src="{% static 'dist/img/avatar5.png' %}"
-
-                    >
-                {% endif %}
-                <span class="d-none d-md-inline">{{ user_profile.owner.first_name }}&nbsp;{{ user_profile.owner.last_name }}</span>
+                <span class="d-none d-md-inline">
+                    {% if user_profile.owner.first_name and user_profile.owner.last_name %}
+                        {{ user_profile.owner.first_name }} {{ user_profile.owner.last_name }}
+                    {% else %}
+                        {{ user_profile.owner.username }}
+                    {% endif %}
+                </span>
             </a>
             <ul class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
                 <!-- User image -->
                 <li class="user-header bg-primary">
-
-                    {% if user_profile.picture %}
-                        <img src="{{ user_profile.picture.url }}"
-                             class="user-image img-circle elevation-2"
-                             alt="User profile picture">
-                    {% else %}
-                        <img class="user-image img-circle elevation-2"
-                             alt="User profile picture" src="{% static 'dist/img/avatar5.png' %}"
-                        >
-                    {% endif %}
-
                     <p>
-                        {{ user_profile.owner.first_name }}&nbsp;{{ user_profile.owner.last_name }}
-                        <small>Last Login: {{ user_profile.owner.last_login }}</small>
+                        {% if user_profile.owner.first_name and user_profile.owner.last_name %}
+                            {{ user_profile.owner.first_name }} {{ user_profile.owner.last_name }}
+                        {% else %}
+                            {{ user_profile.owner.username }}
+                        {% endif %}
+                        <small>Last Login: {{ user_profile.last_login_display|date:"M d, Y, h:i a" }}</small>
                     </p>
                 </li>
                 <!-- Menu Body -->
@@ -81,9 +82,14 @@
     <div class="sidebar">
         <!-- Sidebar user panel (optional) -->
         <div class="user-panel mt-3 pb-3 mb-3 d-flex">
-            <div class="info">
-                <a href="#"
-                   class="d-block">{{ user_profile.owner.first_name }}&nbsp;{{ user_profile.owner.last_name }}</a>
+            <div class="info" style="width: 100%;">
+                <a href="#" class="d-block">
+                    {% if user_profile.owner.first_name and user_profile.owner.last_name %}
+                        {{ user_profile.owner.first_name }} {{ user_profile.owner.last_name }}
+                    {% else %}
+                        {{ user_profile.owner.username }}
+                    {% endif %}
+                </a>
             </div>
         </div>
         <!-- SidebarSearch Form -->
@@ -107,6 +113,14 @@
                         <i class="fas fa-home"></i>
                         <p>
                             Dashboard
+                        </p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{% url 'facebook_accounts' %}" class="nav-link">
+                        <i class="fab fa-facebook"></i>
+                        <p>
+                            Facebook Accounts
                         </p>
                     </a>
                 </li>

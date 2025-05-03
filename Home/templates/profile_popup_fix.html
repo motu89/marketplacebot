@@ -1,0 +1,37 @@
+{% load static %}
+<!-- User profile display fixes - consolidated styling -->
+<style>
+/* Hide all profile images */
+.user-image, 
+.user-panel .image {
+    display: none !important;
+}
+
+/* Make info divs full width */
+.user-panel .info {
+    width: 100% !important;
+}
+
+/* Fix header layout */
+.user-header {
+    padding-top: 20px !important;
+    text-align: center !important;
+}
+
+/* Set min-width for consistent name display in header */
+.user-header p {
+    min-height: 40px;
+}
+
+/* Set min-width for name display to prevent jumping */
+.user-panel .info a.d-block {
+    min-width: 150px;
+    display: inline-block !important;
+}
+
+/* Ensure dropdown text is consistent */
+.nav-item.dropdown.user-menu .nav-link span {
+    min-width: 100px;
+    display: inline-block;
+}
+</style>

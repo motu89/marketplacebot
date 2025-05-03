@@ -9,5 +9,6 @@ urlpatterns=[
 
 
     path('', views.scraper, name='scraper'),
+    path('account/<int:account_number>/', views.scraper_with_account, name='scraper_with_account'),
   
 ]

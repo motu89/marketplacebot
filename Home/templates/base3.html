@@ -1,4 +1,3 @@
-
 {% load static %}
 <title>{% block title %} Home {% endblock %}</title>
 
@@ -8,6 +7,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="referrer" content="no-referrer-when-downgrade">
   <title>AdminLTE 3 | Dashboard 3</title>
+
+  <!-- Profile display fixes -->
+  {% include 'profile_popup_fix.html' %}
 
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
@@ -77,6 +79,5 @@
 <script src="{% static 'plugins/datatables-buttons/js/buttons.html5.min.js' %}"></script>
 <script src="{% static 'plugins/datatables-buttons/js/buttons.print.min.js' %}"></script>
 <script src="{% static 'plugins/datatables-buttons/js/buttons.colVis.min.js' %}"></script>
-
 
 </html>
